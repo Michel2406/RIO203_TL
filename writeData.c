@@ -2,10 +2,10 @@
 #include <stdlib.h>
 
 int writeData(char *filename, char *data) {
-    // Ouvrir un fichier en écriture
-    FILE *file = fopen(filename, "a");
+    // Ouvrir un fichier en écriture (écraser le contenu existant)
+    FILE *file = fopen(filename, "w");
     if (file == NULL) {
-        perror("Erreur lors de l'ouverture du fichier");
+        printf("Erreur lors de l'ouverture du fichier");
         exit(EXIT_FAILURE);
     }
 
@@ -13,7 +13,7 @@ int writeData(char *filename, char *data) {
     size_t bytes_ecrits = fwrite(data, 1, strlen(data), file);
 
     if (bytes_ecrits != strlen(data)) {
-        perror("Erreur lors de l'écriture dans le fichier");
+        printf("Erreur lors de l'écriture dans le fichier");
         fclose(file);
         exit(EXIT_FAILURE);
     }
@@ -23,4 +23,5 @@ int writeData(char *filename, char *data) {
 
     return 0;
 }
+
 
