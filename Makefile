@@ -1,4 +1,5 @@
 PROCESSES = trafficLight
+OBJS = writeData.o
 
 all: $(PROCESSES)
 
@@ -10,3 +11,4 @@ run:
 
 clean::
 	rm -f $(PROCESSES)
+	rm -f $(OBJS)

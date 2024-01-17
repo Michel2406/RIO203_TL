@@ -61,11 +61,11 @@ int main(void)
 		ret_writeData = writeData(filename, "{\"color\" : \"red\"}");
 		delay(3000);
 		ledColorSet(0x0,0xff,0x0);  //Green
-		ret_writeData = writeData(filename, "{\"color\" : \"red\"}");
+		ret_writeData = writeData(filename, "{\"color\" : \"Green\"}");
 
 		delay(3000);
 		ledColorSet(0xff, 0xff, 0x0);//yellow
-		ret_writeData = writeData(filename, "{'color' : 'yellow'}");
+		ret_writeData = writeData(filename, "{\"color\" : \"Yellow\"}");
 		delay(3000);
 	}
 
