@@ -10,8 +10,7 @@ send: send.c
 	gcc send.c -lcurl -o send 
 
 run:
-	lxterminal --command="./trafficLight"
-	lxterminal --command="./send"
+	lxterminal --command="./trafficLight" & lxterminal --command="./send"
 
 clean::
 	rm -f $(PROCESSES)
