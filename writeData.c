@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int writeData(char *filename, char *data) {
     // Ouvrir un fichier en écriture (écraser le contenu existant)

@@ -15,7 +15,7 @@ int main(void) {
     curl = curl_easy_init();
     if(curl) {
         // Données JSON à envoyer
-        const char *postData = {"temperature": "36","lumiere": "42"};
+        const char *postData = "";
 
         // Appel de la fonction pour effectuer la requête POST
         performPostRequest(curl, "http://192.168.251.55:9090/api/v1/zEKH1U9te4RBoOeFwwUU/telemetry", postData);
