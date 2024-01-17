@@ -1,28 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "writeData.h"
 
-int writeData(char *filename, char *data) {
-    // Ouvrir un fichier en écriture (écraser le contenu existant)
+// Structure pour représenter les données à écrire dans le fichier JSON
+typedef struct {
+    double latitude;
+    double longitude;
+    char couleurFeu[20];  // Choisir la taille en fonction de vos besoins
+} JsonData;
+
+void writeData(const char *filename, const char *updateType, const JsonData *jsonData) {
+    // Ouverture du fichier en mode d'écriture
     FILE *file = fopen(filename, "w");
-    if (file == NULL) {
-        printf("Erreur lors de l'ouverture du fichier");
-        exit(EXIT_FAILURE);
-    }
+    if (file != NULL) {
+        // Détermination du type de mise à jour
+        if (strcmp(updateType, "feu") == 0) {
+            // Écriture des données pour la mise à jour de la couleur du feu
+            fprintf(file, "{\"couleurFeu\":\"%s\"}\n", jsonData->couleurFeu);
+        } else if (strcmp(updateType, "gps") == 0) {
+            // Écriture des données pour la mise à jour de la localisation GPS
+            fprintf(file, "{\"latitude\":%f,\"longitude\":%f}\n", jsonData->latitude, jsonData->longitude);
+        } else {
+            fprintf(stderr, "Type de mise à jour non reconnu.\n");
+        }
 
-    // Écrire dans le fichier
-    size_t bytes_ecrits = fwrite(data, 1, strlen(data), file);
-
-    if (bytes_ecrits != strlen(data)) {
-        printf("Erreur lors de l'écriture dans le fichier");
+        // Fermeture du fichier
         fclose(file);
-        exit(EXIT_FAILURE);
+    } else {
+        fprintf(stderr, "Erreur lors de l'ouverture du fichier %s pour écriture.\n", filename);
     }
-
-    // Fermer le fichier après l'écriture
-    fclose(file);
-
-    return 0;
 }
-
 
