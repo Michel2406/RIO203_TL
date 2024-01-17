@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <curl/curl.h>
 
-
 void performPostRequest(CURL *curl, const char *url, const char *postData);
-
 
 int main(void) {
     CURL *curl;
@@ -14,11 +12,38 @@ int main(void) {
     // Création de l'objet CURL
     curl = curl_easy_init();
     if(curl) {
-        // Données JSON à envoyer
-        const char *postData = "";
+        // Lecture du contenu du fichier data.json
+        FILE *file = fopen("data.json", "r");
+        if (!file) {
+            fprintf(stderr, "Erreur lors de l'ouverture du fichier data.json\n");
+            return 1;
+        }
+
+        // Obtention de la taille du fichier
+        fseek(file, 0, SEEK_END);
+        long size = ftell(file);
+        fseek(file, 0, SEEK_SET);
+
+        // Allocation d'un tampon pour stocker le contenu du fichier
+        char *postData = (char *)malloc(size + 1);
+        if (!postData) {
+            fprintf(stderr, "Erreur lors de l'allocation de mémoire\n");
+            fclose(file);
+            return 1;
+        }
+
+        // Lecture du contenu du fichier dans le tampon
+        fread(postData, 1, size, file);
+        postData[size] = '\0';  // Ajout d'un caractère de fin de chaîne
+
+        // Fermeture du fichier
+        fclose(file);
 
         // Appel de la fonction pour effectuer la requête POST
         performPostRequest(curl, "http://192.168.251.55:9090/api/v1/zEKH1U9te4RBoOeFwwUU/telemetry", postData);
+
+        // Libération de la mémoire allouée pour le tampon
+        free(postData);
 
         // Libération des ressources CURL
         curl_easy_cleanup(curl);
@@ -29,7 +54,6 @@ int main(void) {
 
     return 0;
 }
-
 
 // Fonction pour effectuer une requête POST avec CURL
 void performPostRequest(CURL *curl, const char *url, const char *postData) {
