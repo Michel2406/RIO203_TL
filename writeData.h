@@ -1,6 +1,6 @@
 #ifndef WRITE_H
 #define WRITE_H
 
-int writeData(char *, char *);
+void writeData(const char *filename, const char *updateType, const JsonData *jsonData);
 
 #endif
