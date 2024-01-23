@@ -4,10 +4,13 @@
 typedef struct {
     double latitude;
     double longitude;
-    char couleurFeu[20];
+    char *color;
 } JsonData;
 
-void writeData(const char *filename, const char *updateType, const JsonData *jsonData);
+extern JsonData * dataToSend;
+
+
+void writeData(const char *filename, const char *updateType, JsonData *jsonData);
 
 #endif // WRITEDATA_H
 

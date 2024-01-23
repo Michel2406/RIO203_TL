@@ -30,6 +30,7 @@
 #define LedPinGreen 1
 #define LedPinBlue 2
 
+
 void ledInit(void)
 {
 	softPwmCreate(LedPinRed,  0, 100);
@@ -56,16 +57,24 @@ int main(void)
 	}
 	ledInit();
 
+	dataToSend->latitude = 0;
+	dataToSend->longitude = 0;
+	dataToSend->color = "";
+
 	while(1){
 		ledColorSet(0xff,0x0,0x0);//Red
-		ret_writeData = writeData(filename, "{\"color\" : \"red\"}");
+		dataToSend->color = "Red";
+		writeData(filename, "color", dataToSend);
 		delay(3000);
-		ledColorSet(0x0,0xff,0x0);  //Green
-		ret_writeData = writeData(filename, "{\"color\" : \"Green\"}");
 
+		ledColorSet(0x0,0xff,0x0);  //Green
+		dataToSend->color = "Green";
+		writeData(filename, "color", dataToSend);
 		delay(3000);
+
 		ledColorSet(0xff, 0xff, 0x0);//yellow
-		ret_writeData = writeData(filename, "{\"color\" : \"Yellow\"}");
+		dataToSend->color = "Yellow";
+		writeData(filename, "color", dataToSend);
 		delay(3000);
 	}
 
