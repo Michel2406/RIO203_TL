@@ -56,10 +56,11 @@ int main(void)
 		return -1; 
 	}
 	ledInit();
+	dataToSend = malloc(sizeof(JsonData));
 
 	dataToSend->latitude = 0;
 	dataToSend->longitude = 0;
-	dataToSend->color = "";
+	dataToSend->color = NULL;
 
 	while(1){
 		ledColorSet(0xff,0x0,0x0);//Red
@@ -78,6 +79,7 @@ int main(void)
 		delay(3000);
 	}
 
+	free(dataToSend);
 
 	return 0;
 }
