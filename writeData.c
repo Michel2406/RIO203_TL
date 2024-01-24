@@ -2,10 +2,39 @@
 #include <stdio.h>
 #include <string.h>
 
-
-// Fonction pour mettre à jour la couleur du feu dans le fichier JSON
+//Fonction pour mettre à jour la couleur du feu
 void updateColorData(FILE *file, const JsonData *jsonData) {
-    fprintf(file, "{\"couleurFeu\":\"%s\"}\n", jsonData->color);
+    // Ouvrir le fichier en mode lecture
+    FILE *tempFile = fopen("temp.json", "w");
+
+    if (tempFile == NULL) {
+        fprintf(stderr, "Erreur lors de l'ouverture du fichier temporaire pour écriture.\n");
+        return;
+    }
+
+    // Lire le fichier original et copier son contenu dans le fichier temporaire
+    char buffer[1024];
+    while (fgets(buffer, sizeof(buffer), file) != NULL) {
+        fputs(buffer, tempFile);
+    }
+
+    // Rembobiner le fichier original à la position de début
+    rewind(file);
+
+    // Écrire la nouvelle ligne de couleur dans le fichier temporaire
+    fprintf(tempFile, "{\"couleurFeu\":\"%s\"}\n", jsonData->color);
+
+    // Copier le reste du fichier original après la nouvelle ligne
+    while (fgets(buffer, sizeof(buffer), file) != NULL) {
+        fputs(buffer, tempFile);
+    }
+
+    // Fermer les fichiers
+    fclose(file);
+    fclose(tempFile);
+
+    // Renommer le fichier temporaire pour écraser l'original
+    rename("temp.json", "data.json");
 }
 
 // Fonction pour mettre à jour la localisation GPS dans le fichier JSON
