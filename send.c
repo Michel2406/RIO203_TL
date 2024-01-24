@@ -1,7 +1,9 @@
 #include <stdio.h>
+#include <wiringPi.h>
 #include <curl/curl.h>
 
 size_t read_callback(void *ptr, size_t size, size_t nmemb, void *userdata);
+void performPostRequest(CURL *curl, const char *url, FILE *file);
 
 int main(void) {
     CURL *curl;
@@ -11,28 +13,31 @@ int main(void) {
 
     // Création de l'objet CURL
     curl = curl_easy_init();
-    if(curl) {
-        // Ouverture du fichier data.json
-        FILE *file = fopen("data.json", "r");
-        if (!file) {
-            fprintf(stderr, "Erreur lors de l'ouverture du fichier data.json\n");
-            return 1;
+    while(1){
+        if(curl) {
+            // Ouverture du fichier data.json
+            FILE *file = fopen("data.json", "r");
+            if (!file) {
+                fprintf(stderr, "Erreur lors de l'ouverture du fichier data.json\n");
+                return 1;
+            }
+
+            // Appel de la fonction pour effectuer la requête POST avec le contenu du fichier
+            performPostRequest(curl, "http://192.168.96.55:9090/api/v1/zEKH1U9te4RBoOeFwwUU/telemetry", file);
+
+            // Fermeture du fichier
+            fclose(file);
+
+            // Libération des ressources CURL
+            curl_easy_cleanup(curl);
         }
 
-        // Appel de la fonction pour effectuer la requête POST avec le contenu du fichier
-        performPostRequest(curl, "http://192.168.251.55:9090/api/v1/zEKH1U9te4RBoOeFwwUU/telemetry", file);
+        // Libération des ressources globales de libcurl
+        curl_global_cleanup();
 
-        // Fermeture du fichier
-        fclose(file);
-
-        // Libération des ressources CURL
-        curl_easy_cleanup(curl);
-    }
-
-    // Libération des ressources globales de libcurl
-    curl_global_cleanup();
-
-    return 0;
+		delay(10);
+        }
+        return 0;
 }
 
 // Fonction pour effectuer une requête POST avec CURL en utilisant le contenu du fichier
