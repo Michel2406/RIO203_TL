@@ -11,9 +11,8 @@ typedef struct {
     char *color;
 } JsonData;
 
-
-void writeData(const char *, const char *, JsonData *);
-void updateGPSData(FILE *, const JsonData *);
+void updateGPSData(const char*, const JsonData *);
+void updateColorData(const char *filename, const JsonData *jsonData);
 
 #endif // WRITEDATA_H
 

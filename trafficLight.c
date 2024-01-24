@@ -64,23 +64,23 @@ int main(void)
 	dataToSend->color = NULL;
 
 	updateGPSData(filename, dataToSend);
-	/*
+	
 	while(1){
 		ledColorSet(0xff,0x0,0x0);//Red
 		dataToSend->color = "Red";
-		writeData(filename, "color", dataToSend);
+		updateColorData(filename, dataToSend);
 		delay(3000);
 
 		ledColorSet(0x0,0xff,0x0);  //Green
 		dataToSend->color = "Green";
-		writeData(filename, "color", dataToSend);
+		updateColorData(filename, dataToSend);
 		delay(3000);
 
 		ledColorSet(0xff, 0xff, 0x0);//yellow
 		dataToSend->color = "Yellow";
-		writeData(filename, "color", dataToSend);
+		updateColorData(filename, dataToSend);
 		delay(3000);
-	}*/
+	}
 
 	free(dataToSend);
 

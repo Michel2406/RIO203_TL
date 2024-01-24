@@ -9,6 +9,7 @@ trafficLight: trafficLight.c writeData.o
 send: send.c
 	gcc send.c -lcurl -o send -lwiringPi
 
+writeData.o: writeData.c writeData.h
 
 run:
 	lxterminal --command="./trafficLight" & lxterminal --command="./send" 
