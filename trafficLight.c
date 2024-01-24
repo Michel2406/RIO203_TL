@@ -30,6 +30,7 @@
 #define LedPinGreen 1
 #define LedPinBlue 2
 
+JsonData *dataToSend;
 
 void ledInit(void)
 {
@@ -56,14 +57,14 @@ int main(void)
 		return -1; 
 	}
 	ledInit();
-	dataToSend = malloc(sizeof(JsonData));
 
+	dataToSend = malloc(sizeof(JsonData));
 	dataToSend->latitude = 48.71299;
 	dataToSend->longitude = 2.20034;
 	dataToSend->color = NULL;
 
-	writeData(filename, "gps", dataToSend);
-
+	updateGPSData(filename, dataToSend);
+	/*
 	while(1){
 		ledColorSet(0xff,0x0,0x0);//Red
 		dataToSend->color = "Red";
@@ -79,7 +80,7 @@ int main(void)
 		dataToSend->color = "Yellow";
 		writeData(filename, "color", dataToSend);
 		delay(3000);
-	}
+	}*/
 
 	free(dataToSend);
 

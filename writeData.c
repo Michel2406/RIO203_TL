@@ -1,6 +1,5 @@
 #include "writeData.h"
-#include <stdio.h>
-#include <string.h>
+
 
 void updateColorData(FILE *file, const JsonData *jsonData) {
     // Lire le contenu actuel de data.json et stocker dans un buffer
@@ -41,7 +40,7 @@ void updateColorData(FILE *file, const JsonData *jsonData) {
 
 // Fonction pour mettre à jour la localisation GPS dans le fichier JSON
 void updateGPSData(FILE *file, const JsonData *jsonData) {
-    fprintf(file, "{\"latitude\":%f,\"longitude\":%f}\n", jsonData->latitude, jsonData->longitude);
+    fprintf(file, "{\n\t\"latitude\":%f,\n\t\"longitude\":%f\n}", jsonData->latitude, jsonData->longitude);
 }
 
 void writeData(const char *filename, const char *updateType, JsonData *jsonData) {
