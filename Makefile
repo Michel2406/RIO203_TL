@@ -1,4 +1,4 @@
-PROCESSES = trafficLight send
+PROCESSES = trafficLight send 
 OBJS = writeData.o
 
 all: $(PROCESSES)
@@ -9,8 +9,9 @@ trafficLight: trafficLight.c writeData.o
 send: send.c
 	gcc send.c -lcurl -o send -lwiringPi
 
+
 run:
-	lxterminal --command="./trafficLight" & lxterminal --command="./send"
+	lxterminal --command="./trafficLight" & lxterminal --command="./send" 
 
 clean::
 	rm -f $(PROCESSES)

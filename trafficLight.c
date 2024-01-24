@@ -58,9 +58,11 @@ int main(void)
 	ledInit();
 	dataToSend = malloc(sizeof(JsonData));
 
-	dataToSend->latitude = 0;
-	dataToSend->longitude = 0;
+	dataToSend->latitude = 48.71299;
+	dataToSend->longitude = 2.20034;
 	dataToSend->color = NULL;
+
+	writeData(filename, "gps", dataToSend);
 
 	while(1){
 		ledColorSet(0xff,0x0,0x0);//Red
