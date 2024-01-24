@@ -2,39 +2,41 @@
 #include <stdio.h>
 #include <string.h>
 
-//Fonction pour mettre à jour la couleur du feu
 void updateColorData(FILE *file, const JsonData *jsonData) {
-    // Ouvrir le fichier en mode lecture
-    FILE *tempFile = fopen("temp.json", "w");
+    // Lire le contenu actuel de data.json et stocker dans un buffer
+    fseek(file, 0, SEEK_END);
+    long fileSize = ftell(file);
+    rewind(file);
 
-    if (tempFile == NULL) {
-        fprintf(stderr, "Erreur lors de l'ouverture du fichier temporaire pour écriture.\n");
+    char *buffer = malloc(fileSize + 1);
+    if (buffer == NULL) {
+        fprintf(stderr, "Erreur d'allocation mémoire pour le buffer.\n");
         return;
     }
 
-    // Lire le fichier original et copier son contenu dans le fichier temporaire
-    char buffer[1024];
-    while (fgets(buffer, sizeof(buffer), file) != NULL) {
-        fputs(buffer, tempFile);
-    }
+    fread(buffer, 1, fileSize, file);
+    buffer[fileSize] = '\0';
 
-    // Rembobiner le fichier original à la position de début
-    rewind(file);
-
-    // Écrire la nouvelle ligne de couleur dans le fichier temporaire
-    fprintf(tempFile, "{\"couleurFeu\":\"%s\"}\n", jsonData->color);
-
-    // Copier le reste du fichier original après la nouvelle ligne
-    while (fgets(buffer, sizeof(buffer), file) != NULL) {
-        fputs(buffer, tempFile);
-    }
-
-    // Fermer les fichiers
+    // Fermer le fichier
     fclose(file);
-    fclose(tempFile);
 
-    // Renommer le fichier temporaire pour écraser l'original
-    rename("temp.json", "data.json");
+    // Ouvrir le fichier en mode écriture (effacer son contenu)
+    file = fopen("data.json", "w");
+    if (file == NULL) {
+        fprintf(stderr, "Erreur lors de l'ouverture de data.json pour écriture.\n");
+        free(buffer);
+        return;
+    }
+
+    // Écrire le contenu actuel du fichier dans le nouveau fichier
+    fprintf(file, "%s", buffer);
+
+    // Ajouter la nouvelle ligne de couleur dans le fichier
+    fprintf(file, "{\"couleurFeu\":\"%s\"}\n", jsonData->color);
+
+    // Fermer le fichier et libérer le buffer
+    fclose(file);
+    free(buffer);
 }
 
 // Fonction pour mettre à jour la localisation GPS dans le fichier JSON
