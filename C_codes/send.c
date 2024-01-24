@@ -13,10 +13,21 @@ int main(void) {
 
     // Création de l'objet CURL
     curl = curl_easy_init();
+
+// Ouverture du fichier data.json
+            FILE *file = fopen("color.json", "r");
+            if (!file) {
+                fprintf(stderr, "Erreur lors de l'ouverture du fichier data.json\n");
+                return 1;
+            }
+
+            // Appel de la fonction pour effectuer la requête POST avec le contenu du fichier
+            performPostRequest(curl, "http://192.168.96.55:9090/api/v1/zEKH1U9te4RBoOeFwwUU/telemetry", file);
+
     while(1){
         if(curl) {
             // Ouverture du fichier data.json
-            FILE *file = fopen("data.json", "r");
+            FILE *file = fopen("color.json", "r");
             if (!file) {
                 fprintf(stderr, "Erreur lors de l'ouverture du fichier data.json\n");
                 return 1;

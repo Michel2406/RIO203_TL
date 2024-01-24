@@ -48,7 +48,6 @@ void ledColorSet(unsigned char r_val, unsigned char g_val, unsigned char b_val)
 
 int main(void)
 {
-	char * filename = "data.json";
 	char * data;
 	int ret_writeData;
 	printf("Traffic Light simulation\n");
@@ -63,22 +62,22 @@ int main(void)
 	dataToSend->longitude = 2.20034;
 	dataToSend->color = NULL;
 
-	updateGPSData(filename, dataToSend);
+	updateGPSData("gps.json", dataToSend);
 	
 	while(1){
 		ledColorSet(0xff,0x0,0x0);//Red
 		dataToSend->color = "Red";
-		updateColorData(filename, dataToSend);
+		updateColorData("color.json", dataToSend);
 		delay(3000);
 
 		ledColorSet(0x0,0xff,0x0);  //Green
 		dataToSend->color = "Green";
-		updateColorData(filename, dataToSend);
+		updateColorData("color.json", dataToSend);
 		delay(3000);
 
 		ledColorSet(0xff, 0xff, 0x0);//yellow
 		dataToSend->color = "Yellow";
-		updateColorData(filename, dataToSend);
+		updateColorData("color.json", dataToSend);
 		delay(3000);
 	}
 
