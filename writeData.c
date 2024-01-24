@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <cjson/cJSON.h>
+#include "cjson/cJSON.h"
 
 // Fonction pour mettre à jour la couleur du feu dans le fichier JSON
 void updateColorData(const char *filename, const JsonData *jsonData) {
