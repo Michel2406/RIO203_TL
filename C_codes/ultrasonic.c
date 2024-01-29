@@ -6,8 +6,11 @@
 #include <stdio.h>
 #include <sys/time.h>
 
-#define Trig    0
-#define Echo    1
+
+#define Trig    3
+#define Echo    4
+#define BuzzerPin      5
+
 
 void ultraInit(void)
 {
@@ -43,6 +46,14 @@ float disMeasure(void)
 	return dis;
 }
 
+void buzz(void)
+{
+	digitalWrite(BuzzerPin, HIGH);
+	delay(100);
+	digitalWrite(BuzzerPin, LOW);
+	
+}
+
 int main(void)
 {
 	float dis;
@@ -51,13 +62,18 @@ int main(void)
 		printf("setup wiringPi failed !\n");
 		return 1; 
 	}
-
+	pinMode(BuzzerPin,  OUTPUT);
 	ultraInit();
+
 	
 	while(1){
+		digitalWrite(BuzzerPin, LOW);
 		dis = disMeasure();
 		printf("%0.2f cm\n\n",dis);
 		delay(300);
+		if(dis < 100){
+			buzz();
+		}
 	}
 
 	return 0;
