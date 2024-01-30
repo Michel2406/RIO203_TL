@@ -16,7 +16,7 @@ def main():
             send.insert_led_data(led_data)
 
         # Attendre pendant un certain temps avant la prochaine itération
-        time.sleep(3)  # Attendre 5 secondes (ajustez selon vos besoins)
+        time.sleep(1)  # Attendre 3 secondes (ajustez selon vos besoins)
 
 if __name__ == "__main__":
     main()

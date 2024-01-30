@@ -71,17 +71,17 @@ int main(void)
 		ledColorSet(0xff,0x0,0x0);//Red
 		dataToSend->color = "Red";
 		updateColorData("../color.json", dataToSend);
-		delay(3000);
+		delay(10000);
 
 		ledColorSet(0x0,0xff,0x0);  //Green
 		dataToSend->color = "Green";
 		updateColorData("../color.json", dataToSend);
-		delay(3000);
+		delay(10000);
 
 		ledColorSet(0xff, 0xff, 0x0);//yellow
 		dataToSend->color = "Yellow";
 		updateColorData("../color.json", dataToSend);
-		delay(3000);
+		delay(10000);
 	}
 
 	free(dataToSend);

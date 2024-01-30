@@ -34,6 +34,7 @@ def insert_led_data(led_data):
         VALUES (%s,%s, %s)
         ON DUPLICATE KEY UPDATE id = VALUES(id)
     """
+    cursor.execute("DELETE FROM LED")
     cursor.execute(insert_query, (1,led_data['number'], led_data['couleur']))
 
     # Commit des modifications
