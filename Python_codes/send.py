@@ -28,9 +28,13 @@ def insert_led_data(led_data):
     conn = mysql.connector.connect(**conn_params)
     cursor = conn.cursor()
 
-    # Insertion de données dans la table "LED"
-    insert_query = "UPDATE LED SET number = ?, couleur= ? WHERE id = ?"
-    cursor.execute(insert_query, (led_data['number'], led_data['couleur'],1))
+    # Commande SQL pour insérer ou mettre à jour la ligne
+    insert_query = """
+        INSERT INTO LED (number, couleur)
+        VALUES (%s, %s)
+        ON DUPLICATE KEY UPDATE couleur = VALUES(couleur)
+    """
+    cursor.execute(insert_query, (led_data['number'], led_data['couleur']))
 
     # Commit des modifications
     conn.commit()
