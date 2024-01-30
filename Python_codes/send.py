@@ -30,11 +30,11 @@ def insert_led_data(led_data):
 
     # Commande SQL pour insérer ou mettre à jour la ligne
     insert_query = """
-        INSERT INTO LED (number, couleur)
-        VALUES (%s, %s)
-        ON DUPLICATE KEY UPDATE couleur = VALUES(couleur)
+        INSERT INTO LED (id,number, couleur)
+        VALUES (%s,%s, %s)
+        ON DUPLICATE KEY UPDATE id = VALUES(id)
     """
-    cursor.execute(insert_query, (led_data['number'], led_data['couleur']))
+    cursor.execute(insert_query, (1,led_data['number'], led_data['couleur']))
 
     # Commit des modifications
     conn.commit()
