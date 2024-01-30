@@ -62,22 +62,22 @@ int main(void)
 	dataToSend->longitude = 2.20034;
 	dataToSend->color = NULL;
 
-	updateGPSData("gps.json", dataToSend);
+	updateGPSData("../gps.json", dataToSend);
 	
 	while(1){
 		ledColorSet(0xff,0x0,0x0);//Red
 		dataToSend->color = "Red";
-		updateColorData("color.json", dataToSend);
+		updateColorData("../color.json", dataToSend);
 		delay(3000);
 
 		ledColorSet(0x0,0xff,0x0);  //Green
 		dataToSend->color = "Green";
-		updateColorData("color.json", dataToSend);
+		updateColorData("../color.json", dataToSend);
 		delay(3000);
 
 		ledColorSet(0xff, 0xff, 0x0);//yellow
 		dataToSend->color = "Yellow";
-		updateColorData("color.json", dataToSend);
+		updateColorData("../color.json", dataToSend);
 		delay(3000);
 	}
 
