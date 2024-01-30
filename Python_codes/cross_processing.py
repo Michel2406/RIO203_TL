@@ -281,7 +281,7 @@ def is_point_inside_rectangle(point, corner1, corner2):
 #---------MAIN PROGRAM--------#
 #=============================#
 #initialization
-cap = cv2.VideoCapture('walker.mov') #load a video
+cap = cv2.VideoCapture('../walker.mov') #load a video
 
 W = cap.get(3) #get width
 H = cap.get(4) #get height
