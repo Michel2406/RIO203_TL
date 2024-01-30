@@ -2,7 +2,7 @@ import mysql.connector
 import json
 # Paramètres de connexion à la base de données MySQL
 conn_params = {
-    'host': '192.168.96.55',
+    'host': '192.168.126.55',
     'user': 'root',
     'password': 'rio203',
     'database': 'rio',

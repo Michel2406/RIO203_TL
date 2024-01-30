@@ -12,7 +12,7 @@ ultrasonic: ultrasonic.c
 writeData.o: writeData.c writeData.h
 
 run:
-	lxterminal --command="./trafficLight" & lxterminal --command="python ../Python_codes/main.py" & lxterminal --command="./ultrasonic" & lxterminal --command="python ../Python_codes/cross_processing.py"
+	lxterminal --command="./trafficLight" & lxterminal --command="python ../Python_codes/main.py" & lxterminal --command="./ultrasonic" & lxterminal --command="python ../Python_codes/receive.py"
 
 clean::
 	rm -f $(PROCESSES)
