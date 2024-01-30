@@ -15,14 +15,13 @@ def check_attribute_value():
     cursor = conn.cursor()
 
     # Commande SQL pour sélectionner la valeur de l'attribut de la ligne spécifique
-    select_query = "SELECT couleur FROM LED WHERE id = %s"
-    cursor.execute(select_query, (1,))  # Remplacez 1 par l'ID de la ligne que vous souhaitez vérifier
+    select_query = "SELECT * FROM User_Demand"
+    cursor.execute(select_query)  # Remplacez 1 par l'ID de la ligne que vous souhaitez vérifier
 
     # Récupérer la valeur de l'attribut
     result = cursor.fetchone()
     if result:
-        couleur = result[0]
-        print(f"La valeur de l'attribut 'couleur' est : {couleur}")
+        print(f"La valeur de l'attribut 'demand' est : {result[0]}")
     else:
         print("L'ID de la ligne spécifiée n'existe pas dans la table LED.")
 
