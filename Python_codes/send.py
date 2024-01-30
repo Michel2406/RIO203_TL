@@ -1,5 +1,13 @@
 import mysql.connector
 import json
+# Paramètres de connexion à la base de données MySQL
+conn_params = {
+    'host': '192.168.96.55',
+    'user': 'root',
+    'password': 'rio203',
+    'database': 'rio',
+
+}
 
 def read_json(nom_fichier):
     try:
@@ -15,22 +23,14 @@ def read_json(nom_fichier):
 
 
 def insert_led_data(led_data):
-    # Paramètres de connexion à la base de données MySQL
-    conn_params = {
-        'host': 'localhost',
-        'user': 'root',
-        'password': 'rio203',
-        'database': 'rio',
-        'auth_plugin': 'rio203'
-    }
 
     # Connexion à la base de données
     conn = mysql.connector.connect(**conn_params)
     cursor = conn.cursor()
 
     # Insertion de données dans la table "LED"
-    insert_query = "INSERT INTO LED (couleur, etat) VALUES (%s, %s)"
-    cursor.execute(insert_query, (led_data['couleur'], led_data['etat']))
+    insert_query = "INSERT INTO LED (number, couleur) VALUES (%s,%s)"
+    cursor.execute(insert_query, (led_data['number'], led_data['couleur']))
 
     # Commit des modifications
     conn.commit()
@@ -42,15 +42,6 @@ def insert_led_data(led_data):
 # Exemple d'utilisation de la fonction avec un objet JSON
 
 def insert_gps_leds_data(gps_leds_data):
-    # Paramètres de connexion à la base de données MySQL
-    conn_params = {
-        'host': 'localhost',
-        'user': 'root',
-        'password': 'rio203',
-        'database': 'rio',
-        'auth_plugin': 'rio203'
-    }
-
     # Connexion à la base de données
     conn = mysql.connector.connect(**conn_params)
     cursor = conn.cursor()

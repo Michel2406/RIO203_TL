@@ -12,7 +12,8 @@ void updateColorData(const char *filename, const JsonData *jsonData) {
 
     // Écrire le contenu JSON dans le fichier
     fprintf(file, "{\n");
-    fprintf(file, "  \"couleurFeu\": \"%s\"\n", jsonData->color);
+    fprintf(file, "  \"couleur\": \"%s\"\n", jsonData->color);
+    fprintf(file, "  \"number\": \"%s\"\n", jsonData->tl_ID);
     fprintf(file, "}\n");
 
     // Fermer le fichier
@@ -36,3 +37,4 @@ void updateGPSData(const char *filename, const JsonData *jsonData) {
     // Fermer le fichier
     fclose(file);
 }
+

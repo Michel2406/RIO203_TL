@@ -22,8 +22,8 @@ CREATE TABLE GSP_user (
 -- Table pour "LED"
 CREATE TABLE LED (
     id INT PRIMARY KEY,
+    number VARCHAR(255),
     couleur VARCHAR(255),
-    etat VARCHAR(255)
 );
 
 -- Table pour "Users"

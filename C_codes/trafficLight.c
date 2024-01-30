@@ -60,9 +60,12 @@ int main(void)
 	dataToSend = malloc(sizeof(JsonData));
 	dataToSend->latitude = 48.71299;
 	dataToSend->longitude = 2.20034;
-	dataToSend->color = NULL;
+	dataToSend->color = "off";
+	dataToSend->tl_ID = 1;
 
 	updateGPSData("../gps.json", dataToSend);
+	updateColorData("../color.json", dataToSend);
+
 	
 	while(1){
 		ledColorSet(0xff,0x0,0x0);//Red
