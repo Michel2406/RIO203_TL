@@ -29,8 +29,8 @@ def insert_led_data(led_data):
     cursor = conn.cursor()
 
     # Insertion de données dans la table "LED"
-    insert_query = "INSERT INTO LED (number, couleur) VALUES (%s,%s)"
-    cursor.execute(insert_query, (led_data['number'], led_data['couleur']))
+    insert_query = "UPDATE LED SET number = ?, couleur= ? WHERE id = ?"
+    cursor.execute(insert_query, (led_data['number'], led_data['couleur'],1))
 
     # Commit des modifications
     conn.commit()
