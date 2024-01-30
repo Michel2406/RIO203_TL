@@ -1,0 +1,9 @@
+{
+    "database": {
+        "host": "localhost",
+        "user": "root",
+        "password": "rio203",
+        "database_name": "rio",
+        "auth_plugin": "rio203"
+    }
+}
