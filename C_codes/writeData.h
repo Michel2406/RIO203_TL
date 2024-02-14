@@ -9,6 +9,7 @@ typedef struct {
     double latitude;
     double longitude;
     char *color;
+    int tl_ID;
 } JsonData;
 
 void updateGPSData(const char*, const JsonData *);

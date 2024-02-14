@@ -46,10 +46,44 @@ void ledColorSet(unsigned char r_val, unsigned char g_val, unsigned char b_val)
 	softPwmWrite(LedPinBlue, 0xff-b_val);
 }
 
+int readOutputFileValue(void){
+	int value;
+	FILE *file = fopen("../output.txt", "r");
+	if(file != NULL){
+		fscanf(file, "%d", &value);
+		fclose(file);
+		return value;
+	} else {
+		fprintf(stderr, "Erreur lors de l'ouverture du fichier");
+		return -1;
+	}
+}
+
+void setLightToRed(JsonData * dataToSend){
+	ledColorSet(0xff,0x0,0x0);//Red
+		dataToSend->color = "Red";
+		updateColorData("../color.json", dataToSend);
+		delay(10000);
+}
+
+void setLightToGreen(JsonData * dataToSend){
+	ledColorSet(0x0,0xff,0x0);  //Green
+		dataToSend->color = "Green";
+		updateColorData("../color.json", dataToSend);
+		delay(20000);
+}
+
+void setLightToYellow(JsonData * dataToSend){
+	ledColorSet(0xff, 0xff, 0x0);//yellow
+		dataToSend->color = "Yellow";
+		updateColorData("../color.json", dataToSend);
+		delay(5000);
+}
+
+
 int main(void)
 {
-	char * data;
-	int ret_writeData;
+	int demand;
 	printf("Traffic Light simulation\n");
 	if(wiringPiSetup() == -1){ //when initialize wiring failed,print messageto screen
 		printf("setup wiringPi failed !\n");
@@ -60,29 +94,32 @@ int main(void)
 	dataToSend = malloc(sizeof(JsonData));
 	dataToSend->latitude = 48.71299;
 	dataToSend->longitude = 2.20034;
-	dataToSend->color = NULL;
+	dataToSend->color = "off";
+	dataToSend->tl_ID = 1;
 
 	updateGPSData("../gps.json", dataToSend);
+	updateColorData("../color.json", dataToSend);
+
 	
 	while(1){
-		ledColorSet(0xff,0x0,0x0);//Red
-		dataToSend->color = "Red";
-		updateColorData("../color.json", dataToSend);
-		delay(3000);
+		setLightToRed(dataToSend);
+		demand = readOutputFileValue();
+		if(demand){
+			setLightToRed(dataToSend);
+		} else {
+			setLightToGreen(dataToSend);	
+		}
 
-		ledColorSet(0x0,0xff,0x0);  //Green
-		dataToSend->color = "Green";
-		updateColorData("../color.json", dataToSend);
-		delay(3000);
+		demand = readOutputFileValue();
+		if(demand){
+			setLightToRed(dataToSend);
+		} else {
+			setLightToYellow(dataToSend);
+		}
 
-		ledColorSet(0xff, 0xff, 0x0);//yellow
-		dataToSend->color = "Yellow";
-		updateColorData("../color.json", dataToSend);
-		delay(3000);
 	}
 
 	free(dataToSend);
-
 	return 0;
 }
 

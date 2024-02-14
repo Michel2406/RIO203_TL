@@ -51,7 +51,7 @@ void buzz(void)
 	digitalWrite(BuzzerPin, HIGH);
 	delay(100);
 	digitalWrite(BuzzerPin, LOW);
-	
+	delay(100);
 }
 
 int main(void)
